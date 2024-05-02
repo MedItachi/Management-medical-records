@@ -1,4 +1,4 @@
-package org.java.demo.projet_fin_module;
+package org.java.demo.medical_record;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
