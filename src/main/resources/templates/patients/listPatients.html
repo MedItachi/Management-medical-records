@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layouts/main">
+
+<head>
+    <!-- Common head content -->
+</head>
+<body>
+<!-- Include the layout template -->
+<section layout:fragment="content">
+    <div class="pc-content">
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center justify-content-between">
+                    <div class="col-sm-auto">
+                        <div class="page-header-title">
+                            <h5 class="mb-0">Patients List</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- DataTable start -->
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="dt-responsive">
+                            <table id="patientsTable" class="table table-striped table-bordered nowrap">
+                                <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Prénom</th>
+                                    <th>Téléphone</th>
+                                    <th>Mutuelle</th>
+                                    <th>Groupe Sanguin</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- Iterate over patients and display their information -->
+                                <tr th:each="patient : ${patients}">
+                                    <td th:text="${patient.nom}"></td>
+                                    <td th:text="${patient.prenom}"></td>
+                                    <td th:text="${patient.telephone}"></td>
+                                    <td th:text="${patient.mutuelle}"></td>
+                                    <td th:text="${patient.groupeSanguin}"></td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger" th:onclick="'javascript:deletePatient(\'' + ${patient.id} + '\');'">Delete</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- DataTable end -->
+
+        </div>
+    </div>
+</section>
+<div layout:fragment="extra-scirpt">
+    <script th:inline="javascript">
+        function deletePatient(id) {
+            if (confirm("Are you sure you want to delete this patient?")) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("DELETE", "/patients/" + id, true);
+                xhr.onload = function () {
+                    if (xhr.status == 200) {
+                        location.reload(); // Refresh page after successful deletion
+                    } else {
+                        console.error(xhr.statusText);
+                    }
+                };
+                xhr.send();
+            }
+        }
+    </script>
+</div>
+</body>
+
+</html>
