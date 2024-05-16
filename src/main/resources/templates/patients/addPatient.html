@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layouts/main">
+
+<head>
+  <!-- Common head content -->
+</head>
+
+<body>
+<!-- Include the layout template -->
+<section layout:fragment="content" class="pc-container">
+  <div class="pc-content">
+    <!-- [ breadcrumb ] start -->
+    <div class="page-header">
+      <div class="page-block">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-sm-auto">
+            <div class="page-header-title">
+              <h5 class="mb-0">Form Basic</h5>
+            </div>
+          </div>
+          <div class="col-sm-auto">
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item"><a href="../navigation/index.html"><i class="ph-duotone ph-house"></i></a></li>
+              <li class="breadcrumb-item"><a href="javascript: void(0)">Forms</a></li>
+              <li class="breadcrumb-item" aria-current="page">Form Basic</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- [ breadcrumb ] end -->
+
+    <!-- [ Main Content ] start -->
+    <div class="row">
+      <div class="col-md-">
+        <div class="card">
+          <div class="card-header">
+            <h5>Form controls</h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <form id="patientForm">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-label" for="nom">Nom</label>
+                        <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-label" for="prenom">Prénom</label>
+                        <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-label" for="adresse">Adresse</label>
+                        <input type="text" class="form-control" id="adresse" name="adresse" placeholder="Adresse">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-label" for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-label" for="telephone">Téléphone</label>
+                        <input type="tel" class="form-control" id="telephone" name="telephone" placeholder="Téléphone">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-label" for="dateNaissance">Date de Naissance</label>
+                        <input type="date" class="form-control" id="dateNaissance" name="dateNaissance">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-label" for="groupSanguin">Groupe Sanguin</label>
+                        <select class="form-select" id="groupSanguin" name="groupSanguin">
+                          <option value="O_Negatif">O-</option>
+                          <option value="O_Positif">O+</option>
+                          <option value="A_Negatif">A-</option>
+                          <option value="A_Positif">A+</option>
+                          <option value="B_Negatif">B-</option>
+                          <option value="B_Positif">B+</option>
+                          <option value="AB_Negatif">AB-</option>
+                          <option value="AB_Positif">AB+</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-label" for="mutuelle">Mutuelle</label>
+                        <select class="form-select" id="mutuelle" name="mutuelle">
+                          <option value="CNAM">CNAM</option>
+                          <option value="CIMIR">CIMIR</option>
+                          <option value="CNOPS">CNOPS</option>
+                          <option value="RAMED">CNSS</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary mb-4">Submit</button>
+                </form>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- [ form-element ] end -->
+    </div>
+  </div>
+  <!-- [ Main Content ] end -->
+</section>(add me js function when cleck on creatae get the values andsend to serve wih ajax
+ChatGPT
+To achieve sending form values to the server using AJAX when the submit button is clicked, you can add a JavaScript function that captures the form values, constructs a JSON object, and sends it to the server using AJAX. Here's how you can do it:
+
+Add an event listener to the submit button of the form.
+Prevent the default form submission behavior.
+Gather the form data.
+Convert the form data into a JSON object.
+Send the JSON object to the server using AJAX.
+Here's the JavaScript code you can add:
+
+html
+Copy code
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layouts/main">
+
+<head>
+  <!-- Common head content -->
+</head>
+
+<body>
+<!-- Include the layout template -->
+<section layout:fragment="content" class="pc-container">
+  <div class="pc-content">
+    <!-- [ breadcrumb ] start -->
+    <div class="page-header">
+      <div class="page-block">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-sm-auto">
+            <div class="page-header-title">
+              <h5 class="mb-0">Form Basic</h5>
+            </div>
+          </div>
+          <div class="col-sm-auto">
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item"><a href="../navigation/index.html"><i class="ph-duotone ph-house"></i></a></li>
+              <li class="breadcrumb-item"><a href="javascript: void(0)">Forms</a></li>
+              <li class="breadcrumb-item" aria-current="page">Form Basic</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- [ breadcrumb ] end -->
+
+    <!-- [ Main Content ] start -->
+    <div class="row">
+      <div class="col-md-">
+        <div class="card">
+          <div class="card-header">
+            <h5>Form controls</h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <form id="patientForm">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-label" for="nom">Nom</label>
+                        <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-label" for="prenom">Prénom</label>
+                        <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-label" for="adresse">Adresse</label>
+                        <input type="text" class="form-control" id="adresse" name="adresse" placeholder="Adresse">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-label" for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-label" for="telephone">Téléphone</label>
+                        <input type="tel" class="form-control" id="telephone" name="telephone" placeholder="Téléphone">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-label" for="dateNaissance">Date de Naissance</label>
+                        <input type="date" class="form-control" id="dateNaissance" name="dateNaissance">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-label" for="groupSanguin">Groupe Sanguin</label>
+                        <select class="form-select" id="groupeSanguin" name="groupSanguin">
+                          <option value="O_Negatif">O-</option>
+                          <option value="O_Positif">O+</option>
+                          <option value="A_Negatif">A-</option>
+                          <option value="A_Positif">A+</option>
+                          <option value="B_Negatif">B-</option>
+                          <option value="B_Positif">B+</option>
+                          <option value="AB_Negatif">AB-</option>
+                          <option value="AB_Positif">AB+</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-label" for="mutuelle">Mutuelle</label>
+                        <select class="form-select" id="mutuelle" name="mutuelle">
+                          <option value="CNAM">CNAM</option>
+                          <option value="CIMIR">CIMIR</option>
+                          <option value="CNOPS">CNOPS</option>
+                          <option value="RAMED">CNSS</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-primary mb-4" onclick="submitForm()">Submit</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- [ form-element ] end -->
+    </div>
+  </div>
+  <!-- [ Main Content ] end -->
+</section>
+<div layout:fragment="extra-scirpt">
+<script>
+  function submitForm() {
+    // Gather form data
+    var formData = {
+      nom: document.getElementById('nom').value,
+      prenom: document.getElementById('prenom').value,
+      adresse: document.getElementById('adresse').value,
+      email: document.getElementById('email').value,
+      telephone: document.getElementById('telephone').value,
+      dateNaissance: document.getElementById('dateNaissance').value,
+      groupeSanguin: document.getElementById('groupeSanguin').value,
+      mutuelle: document.getElementById('mutuelle').value
+    };
+
+    // Send data to server using AJAX
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/patients/addPatient", true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        // redirect to /patients after successful submission
+        window.location.href = "/patients";
+      }
+    };
+    xhr.send(JSON.stringify(formData));
+  }
+</script>
+</div>
+</body>
+
+</html>
