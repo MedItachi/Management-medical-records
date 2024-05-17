@@ -38,8 +38,15 @@
     <!-- [Template CSS Files] -->
     <link rel="stylesheet" th:href="@{/assets/css/style.css}" id="main-style-link">
     <link rel="stylesheet" th:href="@{/assets/css/style-preset.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+
+    <!--    fragment to for links-->
+    <div layout:fragment="extra-link">
+
+    </div>
 </head>
-<body data-pc-preset="preset-1" data-pc-sidebar-theme="dark" data-pc-sidebar-caption="true" data-pc-direction="ltr" data-pc-theme="light">
+<body data-pc-preset="preset-1" data-pc-sidebar-theme="dark" data-pc-sidebar-caption="true" data-pc-direction="ltr"
+      data-pc-theme="light">
 <!-- [ Pre-loader ] start -->
 <div class="loader-bg">
     <div class="pc-loader">
@@ -66,25 +73,45 @@
                 </div>
             </div>
         </div>
+
         <div class="navbar-content">
             <ul class="pc-navbar">
                 <li class="pc-item pc-caption">
                     <label>Navigation</label>
+                </li>
+                <li class="pc-item">
+                    <a th:href="@{/}" class="pc-link">
+                    <span class="pc-micon">
+                    <i class="ph-duotone ph-gauge"></i>
+                    </span>
+                        <span class="pc-mtext">Dashboard</span>
+                    </a>
                 </li>
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
             <span class="pc-micon">
               <i class="ph-duotone ph-gauge"></i>
             </span>
-                        <span class="pc-mtext">Dashboard</span>
+                        <span class="pc-mtext">Patients</span>
                         <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
                     </a>
                     <ul class="pc-submenu">
-                        <li class="pc-item"><a class="pc-link" href="../dashboard/index.html">Default</a></li>
-                        <li class="pc-item"><a class="pc-link" href="../dashboard/affiliate.html">Affiliate</a></li>
-                        <li class="pc-item"><a class="pc-link" href="../dashboard/analytics.html">Analytics</a></li>
-                        <li class="pc-item"><a class="pc-link" href="../dashboard/ecommerce.html">E-commerce</a></li>
-                        <li class="pc-item"><a class="pc-link" href="../dashboard/project.html">Project</a></li>
+                        <li class="pc-item"><a class="pc-link" th:href="@{/patients}">List Patients</a></li>
+                        <li class="pc-item"><a class="pc-link" th:href="@{/patients/addPatient}">Add Patients</a></li>
+                    </ul>
+                </li>
+
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link">
+            <span class="pc-micon">
+              <i class="ph-duotone ph-gauge"></i>
+            </span>
+                        <span class="pc-mtext">Consultation</span>
+                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+                    </a>
+                    <ul class="pc-submenu">
+                        <li class="pc-item"><a class="pc-link" th:href="@{/consultations/list}" >List Consultations</a></li>
+                        <li class="pc-item"><a class="pc-link" th:href="@{/consultations}">Add Consultation</a></li>
                     </ul>
                 </li>
             </ul>
@@ -122,7 +149,8 @@
                     <div class="dropdown-menu pc-h-dropdown drp-search">
                         <form class="px-1">
                             <div class="form-group mb-0 d-flex align-items-center">
-                                <input type="search" class="form-control border-0 shadow-none" placeholder="Search here. . .">
+                                <input type="search" class="form-control border-0 shadow-none"
+                                       placeholder="Search here. . .">
                                 <button class="btn btn-light-secondary btn-search">Search</button>
                             </div>
                         </form>
@@ -134,7 +162,7 @@
 
 
 </header>
-<section  layout:fragment="content" class="pc-container" th:fragment="content"></section>
+<section layout:fragment="content" class="pc-container" th:fragment="content"></section>
 
 <footer class="pc-footer">
     <div class="footer-wrapper container-fluid">
@@ -149,8 +177,10 @@
                 <ul class="list-inline footer-link mb-0">
                     <li class="list-inline-item"><a href="../index.html">Home</a></li>
                     <!-- todo link update -->
-                    <li class="list-inline-item"><a href="https://phoenixcoded.gitbook.io/flat-able-bootstrap/" target="_blank">Documentation</a></li>
-                    <li class="list-inline-item"><a href="https://phoenixcoded.authordesk.app/" target="_blank">Support</a></li>
+                    <li class="list-inline-item"><a href="https://phoenixcoded.gitbook.io/flat-able-bootstrap/"
+                                                    target="_blank">Documentation</a></li>
+                    <li class="list-inline-item"><a href="https://phoenixcoded.authordesk.app/"
+                                                    target="_blank">Support</a></li>
                 </ul>
             </div>
         </div>
@@ -162,8 +192,10 @@
 <script th:src="@{/assets/js/fonts/custom-font.js}"></script>
 <script th:src="@{/assets/js/pcoded.js}"></script>
 <script th:src="@{/assets/js/plugins/feather.min.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
 <!--fragment to be other page that use this layout to add he script-->
-<div layout:fragment="extra-scirpt" >
+<div layout:fragment="extra-scirpt">
 
 </div>
 </body>

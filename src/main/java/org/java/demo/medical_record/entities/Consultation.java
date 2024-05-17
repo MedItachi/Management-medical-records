@@ -19,22 +19,14 @@ public class Consultation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "dossier_medical_id")
-    private DossierMedical dossierMedical;
+    private double prixConsultation;
     private Date dateConsultation;
-
-    @Enumerated(EnumType.STRING)
-    private TypeConsultation typeConsultation;
-
-   @OneToMany(mappedBy = "consultation")
-    private List<Facture> factures;
-
-   @OneToMany(mappedBy = "consultation")
-   private List<InterventionMedcin> interventions;
-
-
-
-
-
+    @ManyToMany
+    @JoinTable(name = "consultation_dentiste",
+            joinColumns = @JoinColumn(name = "consultation_id"),
+            inverseJoinColumns = @JoinColumn(name = "dentiste_id"))
+    private List<Dentiste> dentistes;
+    @ManyToOne
+    @JoinColumn(name ="patient_id")
+    private Patient patient;
 }

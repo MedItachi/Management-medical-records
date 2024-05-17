@@ -2,17 +2,17 @@ package org.java.demo.medical_record.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
+@Controller()
 //localhost:8080/patients
 //lombok
 @AllArgsConstructor
-@RequestMapping("/dashbord")
 public class DashbordController {
 
         //    pas data to the view
-        @RequestMapping
+        @GetMapping
         public String getDashbord() {
             return "dashbord/index";
         }

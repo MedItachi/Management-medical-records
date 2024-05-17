@@ -17,8 +17,8 @@ public class DossierMedical {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "dossierMedical",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Consultation>  consultations;
+//    @OneToMany(mappedBy = "dossierMedical",cascade = CascadeType.ALL,orphanRemoval = true)
+//    private List<Consultation>  consultations;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "situation_financiere_id",referencedColumnName = "id")
     private SituationFinanciere situationFinanciere;

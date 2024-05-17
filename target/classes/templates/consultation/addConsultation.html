@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layouts/main" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <!-- Common head content -->
+</head>
+<body>
+<div layout:fragment="extra-link">
+    <!-- Extra link content -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+</div>
+    <!-- Include the layout template -->
+<section layout:fragment="content">
+
+    <div class="pc-content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Create Consultation</h5>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/consultations/save}" th:object="${consultationDTO}" method="post">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="dateConsultation">Date De Consultation</label>
+                                        <input type="date" class="form-control" id="dateConsultation" th:field="*{dateConsultation}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Patient</label>
+                                        <select class="form-control" th:field="*{patientId}">
+                                            <th:block th:each="patient : ${patients}">
+                                                <option th:value="${patient.id}" th:text="${patient.prenom + ' ' + patient.nom}"></option>
+                                            </th:block>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-4">Submit</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Prix Consultation</label>
+                                        <input type="number" class="form-control" th:field="*{prixConsultation}" placeholder="Ex:1500">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Dentistes</label>
+                                        <select class="form-control " th:field="*{dentisteIds}"
+                                                name="choices-multiple-remove-button"
+                                                id="choices-multiple-remove-button"
+                                                multiple>
+                                            <th:block th:each="dentiste : ${dentistes}">
+                                                <option th:value="${dentiste.id}" th:text="${dentiste.prenom + ' ' + dentiste.nom}"></option>
+                                            </th:block>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div layout:fragment="extra-scirpt">
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+   <script>
+       var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+           removeItemButton: true
+       });
+   </script>
+
+</div>
+
+</body>
+</html>
