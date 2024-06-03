@@ -76,7 +76,7 @@
 
         <div class="navbar-content">
             <ul class="pc-navbar">
-                <li class="pc-item pc-caption">
+                <li class="pc-item pc-caption" >
                     <label>Navigation</label>
                 </li>
                 <li class="pc-item">
@@ -87,7 +87,7 @@
                         <span class="pc-mtext">Dashboard</span>
                     </a>
                 </li>
-                <li class="pc-item pc-hasmenu">
+                <li class="pc-item pc-hasmenu" th:if="${session.user.roles.contains('secretaire')}">
                     <a href="#!" class="pc-link">
             <span class="pc-micon">
               <i class="ph-duotone ph-gauge"></i>
@@ -101,7 +101,7 @@
                     </ul>
                 </li>
 
-                <li class="pc-item pc-hasmenu">
+                <li class="pc-item pc-hasmenu" th:if="${session.user.roles.contains('dentiste')}">
                     <a href="#!" class="pc-link">
             <span class="pc-micon">
               <i class="ph-duotone ph-gauge"></i>
@@ -156,10 +156,20 @@
                         </form>
                     </div>
                 </li>
+                <li class="pc-h-item">
+                    <div class="nav-user-details">
+                        <!-- Access user details from session and display -->
+                        <span class="text-primary" th:text="${session.user.username}"></span>
+                        <span class="text-success" th:text="${session.user.roles.get(0)}"></span>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
-
+    <!-- Logout Button -->
+    <form th:action="@{login/logout}" method="get">
+        <button type="submit" class="btn btn-danger">Logout</button>
+    </form>
 
 </header>
 <section layout:fragment="content" class="pc-container" th:fragment="content"></section>

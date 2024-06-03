@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.util.BeanUtil;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.java.demo.medical_record.dto.CreateUserDto;
+import org.java.demo.medical_record.dto.UserDto;
 import org.java.demo.medical_record.entities.Role;
 import org.java.demo.medical_record.entities.Utlisateur;
 import org.java.demo.medical_record.repository.RoleRepository;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.MessageDigest;
 import java.util.List;
+import java.util.Vector;
 
 @Service
 @AllArgsConstructor
@@ -25,12 +27,16 @@ public class UserServiceDefault implements UserService {
     private ModelMapper modelMapper;
     @Override
     public boolean login(String username, String password) {
-        return false;
+
+        Utlisateur user = utilisateurRepository.findByUsername(username);
+        if(user == null){
+            return false;
+        }
+        return user.getPassword().equals(HashPassword(password));
     }
 
     @Override
     public boolean register(CreateUserDto createUserDto) {
-//        check if user already exists
         if(utilisateurRepository.existsByUsername(createUserDto.getUsername())){
 
             throw  new RuntimeException("User already exists");
@@ -70,6 +76,18 @@ public class UserServiceDefault implements UserService {
         }
     }
 
+    @Override
+    public UserDto getUser(String username) {
+        Utlisateur user = utilisateurRepository.findByUsername(username);
+        if(user == null){
+            return null;
+        }
+        UserDto userDto = new UserDto();
+        BeanUtils.copyProperties(user, userDto);
+        userDto.setRoles(getRoleUser(user));
+        return userDto;
+    }
+
     private boolean checkRole(List<Long> roles) {
         for (Long role : roles) {
             if (!roleRepository.existsById(role)) {
@@ -82,4 +100,14 @@ public class UserServiceDefault implements UserService {
     private List<Role> getRoles(List<Long> roles) {
         return roleRepository.findAllById(roles);
     }
+
+    private  List<String> getRoleUser(Utlisateur user){
+        List<Role> roles = user.getRoles();
+        List<String> roleNames = new Vector<String>();
+        for (Role role : roles) {
+            roleNames.add(role.getName());
+        }
+        return roleNames;
+    }
+
 }
